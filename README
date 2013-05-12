@@ -1,0 +1,110 @@
+Krecipes is a Recipe Book for KDE. It requires KDE 4.4 or greater (and Qt 4).
+Developed and tested on Debian GNU/Linux sid (KDE 4.4.5 and Qt 4.6.3).
+
+
+** Dependencies
+
+Additionally to whatever Krecipes is linked against, you will need the client
+programs (i.e shell commands sqlite3, mysql ... ) for your database if you want
+to use the Krecipes backup feature. If you want to use "krecipes
+--convert-sqlite3" you will need both sqlite and sqlite3 shell commands.
+
+** Build Dependencies
+
+ If you're using a Debian-like GNU/Linux distribution you may want to install
+ the following packages: 
+  - kdelibs5-dev
+  - libqimageblitz-dev 
+  - libsqlite3-dev or libsqlite0-dev
+  - libxml2-dev
+  - libxslt1-dev
+ 
+** Building The Latest (2.0-beta2) Release
+ 
+ Just untar the package first:
+ 
+ tar -zxf krecipes-2.0-beta2.tar.gz
+ 
+ And compile:
+ 
+ cd krecipes-2.0-beta2
+ mkdir build && cd build
+ cmake ..
+ make
+ make install
+ 
+ 
+** Downloading, Building And Installing The Latest Development Version With Git
+ 
+ The project is being developed under extragear/utils in KDE's servers. 
+
+ To download the source code, do:
+ 
+ git clone git://anongit.kde.org/krecipes
+
+ To update the source code, do:
+
+ cd krecipes
+ git pull
+
+ To build and install it in the default prefix (usually /usr/local):
+
+ mkdir build && cd build
+ cmake ..
+ make
+ make install
+
+ To build and install it in other prefix, for instance ~/.kde/:
+
+ mkdir build && cd build
+ cmake .. -DCMAKE_INSTALL_PREFIX=~/.kde/ 
+ make
+ make install
+
+ Also if you install it in ~/.kde/ you may want to set the following variables
+ in your .bashrc (or wherever it's appropiate for you):
+
+ export PATH=~/.kde/bin:${PATH}
+ export MANPATH=~/.kde/man:$(manpath)
+ export KDEDIRS=~/.kde:/usr
+ export XDG_DATA_DIRS=~/.kde/share:${XDG_DATA_DIRS}
+ export LD_LIBRARY_PATH=~/.kde/lib
+
+ To uninstall it:
+
+ cd build && make uninstall
+
+
+** Test programs
+
+ Krecipes comes with some programs (targeted to testers and developers) to test
+ importers and exporters. You can build it adding "-DKDE4_BUILD_TESTS=ON" when
+ you execute cmake.
+
+ You can execute all the tests just typing 'make test'. If any of them fails
+ and you need to see more details about what failed, you should execute the
+ failing test individually; you can do this just typing the name of the test in
+ the command line, they are installed in the same place than the 'krecipes'
+ executable.
+
+
+** Hidden features
+
+ There are a couple of hidden (hidden because they are not supported yet)
+ features, to show it you can put these two lines:
+
+ [Advanced]
+ UnhideMergeTools=true
+
+ in krecipesrc configuration file.
+
+ You can see the features ("Merge Similar Categories..." and "Merge Similar
+ Ingredients...") in the "Tools" menu.
+
+
+** The NukeDB tool
+
+ nukedb is a development tool to fill the Krecipes database with huge amounts
+ of data. You can build it along with Krecipes adding "-DBUILD_NUKEDB=ON" when
+ you execute cmake. To use it just type "nukedb" in the console.
+
